@@ -1,5 +1,7 @@
 # ANQ Server Ops
 
+[![Checks](https://github.com/adaalrf/anq-server-ops/actions/workflows/check.yml/badge.svg)](https://github.com/adaalrf/anq-server-ops/actions/workflows/check.yml)
+
 A single-owner operations journal built with React, TypeScript, Fastify and
 PostgreSQL. Keep a small server inventory, record maintenance and incidents,
 and distinguish a completed backup from a tested restore.
