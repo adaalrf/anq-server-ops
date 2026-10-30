@@ -62,6 +62,4 @@ to the current record. Existing API validation and demo restrictions are unchang
 API tests cover authentication, Origin enforcement, invalid input, stale edits,
 backup/restore semantics, archiving, export, demo mode, expiry, and logout against
 real PostgreSQL. Browser tests use a temporary schema and the compiled client.
-The disposable VPS runs the same image contract as anq-publish, with migrations
-and a backup before deployment. Public HTTP is used only for fictional read-only
-demo data until a real domain and HTTPS are configured.
+See [deployment](OPERATIONS.md#deployment) for the container and database contract.

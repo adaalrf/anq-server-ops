@@ -19,8 +19,8 @@ No production credentials or remote service is needed.
 
 `npm run dev:local` is the same combined workflow. `dev:server` loads `.env` and
 watches only the API; `dev:client` runs Vite separately for manual configurations.
-If a local port is occupied, stop the process you own or follow the README's
-manual configuration route. Setup/dev do not stop someone else's process or
+If a local port is occupied, stop the process you own or configure `.env` from
+`.env.example` and use the separate server/client commands. Setup/dev do not stop someone else's process or
 replace its configuration. Do not copy a production `.env` into local setup.
 
 ## Where changes belong
@@ -77,3 +77,7 @@ For a bug, cover the user-visible failure rather than only duplicating the code.
 Describe the trigger, resulting behaviour, validation and remaining limits in the
 change description. Do not add credentials, `.env`, `.local/`, database dumps or
 runtime images to Git. Preserve existing signing settings.
+
+For visual changes, use the local CSS tokens and preserve contrast, visible
+keyboard focus, readable errors and text labels for status. Colour alone must
+not convey state. Keep screenshots fictional.
