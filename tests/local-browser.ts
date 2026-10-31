@@ -1,3 +1,4 @@
+import { workspaceLink } from './workspace-link.js';
 import assert from 'node:assert/strict';
 import { readFile, stat } from 'node:fs/promises';
 import { parseEnv } from 'node:util';
@@ -41,9 +42,9 @@ try {
     await page.reload();
     await expect(page.getByRole('heading', { name: records[0].name, exact: true })).toBeVisible();
   }
-  await page.getByRole('button', { name: 'Activity journal', exact: true }).click();
+  await workspaceLink(page, 'Activity journal');
   await expect(page.getByRole('button', { name: 'Record work', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Backup records', exact: true }).click();
+  await workspaceLink(page, 'Backup records');
   await expect(page.getByRole('button', { name: 'Record backup', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Sign out', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Sign in', exact: true })).toBeVisible();

@@ -10,6 +10,10 @@ and distinguish a completed backup from a tested restore.
 
 ![Inventory](docs/screenshots/inventory-desktop.png)
 
+Navigation keeps the desktop sidebar and uses a labelled, keyboard-accessible mobile
+menu with a return-to-top control. Colours follow the device’s light/dark preference.
+The browser suite checks both themes and mobile navigation with fictional data.
+
 ## Run locally
 
 Requires Linux, Node.js 24+, npm and rootless Podman:

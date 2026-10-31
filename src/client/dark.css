@@ -1,0 +1,176 @@
+/* Dark equivalents for component accents; the main palette lives in tokens.css. */
+@media screen and (prefers-color-scheme: dark) {
+  input,
+  select,
+  textarea {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+  }
+  ::placeholder {
+    color: var(--color-muted);
+    opacity: 1;
+  }
+  .primary {
+    color: var(--color-on-brand);
+  }
+  .sidebar,
+  .site-header,
+  aside {
+    --color-on-brand: #f2f7f5;
+  }
+
+  .topbar {
+    background: var(--color-surface);
+  }
+
+  .topbar strong {
+    color: var(--color-muted);
+  }
+
+  .export {
+    color: var(--color-muted);
+  }
+
+  .demo-banner {
+    border: 1px solid var(--color-line);
+    background: var(--color-positive-surface);
+    color: var(--color-positive);
+  }
+
+  .demo-tag {
+    border: 1px solid var(--color-line);
+  }
+
+  .stats strong {
+    color: var(--color-positive);
+  }
+
+  .stat-icon {
+    background: var(--color-positive-surface);
+    border: 1px solid var(--color-line);
+  }
+
+  .stat-icon.green {
+    background: var(--color-positive-surface);
+  }
+
+  .stat-icon.amber {
+    background: var(--color-warning-surface);
+    border-color: var(--color-line);
+  }
+
+  .panel-title > span {
+    background: var(--color-positive-surface);
+  }
+
+  input,
+  select,
+  textarea {
+    color: var(--color-positive);
+  }
+
+  .search {
+    border: 1px solid var(--color-line);
+  }
+
+  thead {
+    background: var(--color-positive-surface);
+  }
+
+  td {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  tbody tr:hover {
+    background: var(--color-positive-surface);
+  }
+
+  .server-avatar {
+    background: var(--color-positive-surface);
+  }
+
+  .server-avatar.valheim {
+    background: var(--color-info-surface);
+  }
+
+  .server-avatar.factorio {
+    background: var(--color-warning-surface);
+  }
+
+  .badge {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+  }
+
+  .badge.operational,
+  .badge.recorded,
+  .badge.completed {
+    background: var(--color-positive-surface);
+    border-color: var(--color-line);
+  }
+
+  .badge.degraded,
+  .badge.overdue,
+  .badge.planned {
+    background: var(--color-warning-surface);
+    border-color: var(--color-line);
+  }
+
+  .badge.failed {
+    color: var(--color-danger);
+    background: var(--color-danger-surface);
+    border-color: var(--color-line);
+  }
+
+  .text-button {
+    color: var(--color-positive);
+  }
+
+  .bottom-note {
+    border: 1px solid var(--color-line);
+    background: var(--color-positive-surface);
+  }
+
+  footer {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .empty h3 {
+    color: var(--color-positive);
+  }
+
+  .timeline li {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .event-icon {
+    background: var(--color-positive-surface);
+  }
+
+  .event-icon.incident {
+    background: var(--color-warning-surface);
+  }
+
+  dialog {
+    border: 1px solid var(--color-line);
+  }
+
+  .error {
+    background: var(--color-danger-surface);
+    border: 1px solid var(--color-line);
+    color: var(--color-danger);
+  }
+
+  .notice {
+    background: var(--color-positive-surface);
+    border: 1px solid var(--color-line);
+  }
+
+  .login {
+    background: var(--color-positive-surface);
+  }
+
+  .login p.error {
+    color: var(--color-danger);
+  }
+}

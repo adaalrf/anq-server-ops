@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 export type View = 'inventory' | 'journal' | 'backups';
 export type Navigation = { view: View; serverId: string | null };
 export function readNavigation(search: string): Navigation {
@@ -20,6 +20,21 @@ export function navigationUrl(href: string, next: Navigation) {
 }
 export function useNavigation() {
   const [state, setState] = useState(() => readNavigation(window.location.search));
+  const previous = useRef(state);
+  useEffect(() => {
+    if (previous.current.view === state.view && previous.current.serverId === state.serverId)
+      return;
+    previous.current = state;
+    const frame = requestAnimationFrame(() => {
+      const heading = document.querySelector<HTMLElement>('main h1');
+      if (heading) {
+        heading.tabIndex = -1;
+        heading.focus({ preventScroll: true });
+      }
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [state]);
   useEffect(() => {
     const onPop = () => setState(readNavigation(window.location.search));
     window.addEventListener('popstate', onPop);

@@ -1,3 +1,5 @@
+import { checkNavigationTheme } from './navigation-theme.js';
+import { workspaceLink } from './workspace-link.js';
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { mkdir } from 'node:fs/promises';
@@ -89,7 +91,7 @@ try {
   await expect(
     page.getByText('Loaded a separate world and checked the saved state.'),
   ).toBeVisible();
-  await page.getByRole('button', { name: 'Activity journal', exact: true }).click();
+  await workspaceLink(page, 'Activity journal');
   await expect(page).toHaveURL(/\?view=journal$/);
   await page.reload();
   await expect(page.getByRole('heading', { name: 'Activity journal', exact: true })).toBeVisible();
@@ -113,7 +115,7 @@ try {
   await expect(
     page.getByRole('heading', { name: 'Maintenance from journal', exact: true }),
   ).toBeVisible();
-  await page.getByRole('button', { name: 'Backup records', exact: true }).click();
+  await workspaceLink(page, 'Backup records');
   await page.getByRole('button', { name: 'Record backup', exact: true }).click();
   await expect(page.getByLabel('Kind', { exact: true })).toHaveValue('backup');
   assert.deepEqual(
@@ -158,7 +160,7 @@ try {
   await page.getByRole('button', { name: 'Back to inventory' }).click();
   await page.getByLabel('Filter server status', { exact: true }).selectOption('archived');
   await expect(page.getByRole('button', { name: 'View Test garden', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Activity journal', exact: true }).click();
+  await workspaceLink(page, 'Activity journal');
   await page.getByRole('button', { name: 'Record work', exact: true }).click();
   await expect(
     page.getByLabel('Server', { exact: true }).locator(`option[value="${gardenId}"]`),
@@ -237,9 +239,9 @@ try {
   await page.screenshot({ path: 'docs/screenshots/inventory-mobile.png', fullPage: true });
   await page.getByRole('button', { name: 'View Birchwood', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Birchwood', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Activity journal', exact: true }).click();
+  await workspaceLink(page, 'Activity journal');
   await expect(page.getByRole('heading', { name: 'Activity journal', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Backup records', exact: true }).click();
+  await workspaceLink(page, 'Backup records');
   await expect(page.getByRole('heading', { name: 'Backup records', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Record backup', exact: true })).toBeDisabled();
 
@@ -249,7 +251,7 @@ try {
     SELECT gen_random_uuid(),$1,'maintenance','completed','Paging rehearsal '||n,'','2026-10-01T12:00:00Z' FROM generate_series(1,30) n`,
     [gardenId],
   );
-  await page.getByRole('button', { name: 'Activity journal', exact: true }).click();
+  await workspaceLink(page, 'Activity journal');
   await page.getByLabel('Search journal', { exact: true }).fill('Paging rehearsal');
   await expect(page.getByText('30 matching records · Page 1', { exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Next page', exact: true }).click();
@@ -308,7 +310,7 @@ try {
   await expect(page.getByRole('heading', { name: 'Test garden', exact: true })).toBeVisible();
   await page.reload();
   await expect(page.getByRole('heading', { name: 'Test garden', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Activity journal', exact: true }).click();
+  await workspaceLink(page, 'Activity journal');
   await expect(page).toHaveURL(/\/ops\/\?view=journal$/);
   await page.goBack();
   await expect(page.getByRole('heading', { name: 'Test garden', exact: true })).toBeVisible();
@@ -326,6 +328,7 @@ try {
   ).toBeVisible();
   await page.getByRole('button', { name: 'Add a server first', exact: true }).click();
   await expect(page.getByRole('dialog', { name: 'Add a server' })).toBeVisible();
+  await checkNavigationTheme(page, demoOrigin, true);
   assert.deepEqual(consoleErrors, []);
   console.log(
     'Browser workflows passed: owner workflows, contextual recording, required server selection, validation recovery, deep links, history, /ops/ prefix, archived/empty inventory, demo mode, mobile forms and accessibility.',
