@@ -28,7 +28,7 @@ export function SignIn({
               name="username"
               autoComplete="username"
               required
-              defaultValue={session.username}
+              defaultValue={session.username || ''}
               maxLength={80}
             />
           </Field>

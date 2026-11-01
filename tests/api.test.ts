@@ -302,3 +302,18 @@ test('session expiry and logout revoke access', async () => {
   );
   assert.equal((await app.inject({ url: '/api/servers', headers: headers() })).statusCode, 401);
 });
+
+test('signed-out session does not disclose the configured username', async () => {
+  const session = (await app.inject('/api/session')).json();
+  assert.equal(session.authenticated, false);
+  assert.equal(Object.hasOwn(session, 'username'), false);
+  const demo = await createApp(
+    pool,
+    loadConfig({ DATABASE_URL: 'test', DEMO_MODE: 'true', OWNER_USERNAME: 'private-owner' }),
+  );
+  try {
+    assert.equal(Object.hasOwn((await demo.inject('/api/session')).json(), 'username'), false);
+  } finally {
+    await demo.close();
+  }
+});

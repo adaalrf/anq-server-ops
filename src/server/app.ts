@@ -99,12 +99,15 @@ export async function createApp(
       return reply.code(503).send({ status: 'unavailable' });
     }
   });
-  app.get('/api/session', async (request) => ({
-    demo: config.demo,
-    relativeDates: Boolean(config.demoDateAnchor),
-    authenticated: !config.demo && (await authenticated(request)),
-    username: config.username,
-  }));
+  app.get('/api/session', async (request) => {
+    const signedIn = !config.demo && (await authenticated(request));
+    return {
+      demo: config.demo,
+      relativeDates: Boolean(config.demoDateAnchor),
+      authenticated: signedIn,
+      ...(signedIn ? { username: config.username } : {}),
+    };
+  });
   app.post(
     '/api/login',
     { config: { rateLimit: { max: 8, timeWindow: '1 minute' } } },

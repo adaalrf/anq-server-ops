@@ -3,7 +3,7 @@ export type Session = {
   demo: boolean;
   relativeDates?: boolean;
   authenticated: boolean;
-  username: string;
+  username?: string;
 };
 export type Modal =
   | { kind: 'server'; server?: ServerRecord }

@@ -85,7 +85,7 @@ export function Workspace({
         </div>
         <div className="workspace-user">
           <span className="avatar">
-            {session.demo ? 'D' : session.username.slice(0, 1).toUpperCase()}
+            {session.demo ? 'D' : (session.username || '').slice(0, 1).toUpperCase()}
           </span>
           <div>
             <strong>{session.demo ? 'Demo workspace' : session.username}</strong>
