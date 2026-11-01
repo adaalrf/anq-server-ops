@@ -65,3 +65,5 @@ authorization boundary. [Operations](docs/OPERATIONS.md) covers deployment and
 recovery. Keep credentials private and never aim tests at production.
 
 For a read-only sample prepared on a known UTC date, set `DEMO_DATE_ANCHOR=YYYY-MM-DD` alongside `DEMO_MODE=true`. API dates then move together relative to today; stored records, text and pagination keys remain unchanged. Leave it blank for stored dates. Owner mode rejects this setting. The demo banner explains the relative dates.
+
+The journal summary uses the paginated endpoint’s exact total; loading the workspace does not download hundreds of full journal entries just to count them.

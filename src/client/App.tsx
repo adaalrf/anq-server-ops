@@ -3,7 +3,7 @@ import { api } from './api.js';
 import { useNavigation } from './navigation.js';
 import type { FormEvent } from 'react';
 import type { Session, Modal } from './types.js';
-import { backupState, type Entry, type ServerRecord } from '../shared/model.js';
+import { backupState, type ServerRecord } from '../shared/model.js';
 import { Icon } from './components/Icon.js';
 import { Journal } from './pages/Journal.js';
 import { Inventory } from './pages/Inventory.js';
@@ -13,7 +13,7 @@ import { RecordDialog } from './components/RecordDialog.js';
 export function App() {
   const [session, setSession] = useState<Session | null>(null);
   const [servers, setServers] = useState<ServerRecord[]>([]);
-  const [entries, setEntries] = useState<Entry[]>([]);
+  const [entryCount, setEntryCount] = useState(0);
   const [journalRevision, setJournalRevision] = useState(0);
   const { view, serverId: selectedId, navigate } = useNavigation();
   const [query, setQuery] = useState('');
@@ -30,10 +30,10 @@ export function App() {
       if (current.demo || current.authenticated) {
         const [inventory, journal] = await Promise.all([
           api<ServerRecord[]>('/servers'),
-          api<Entry[]>('/entries?limit=500'),
+          api<{ total: number }>('/entries/page?limit=1'),
         ]);
         setServers(inventory);
-        setEntries(journal);
+        setEntryCount(journal.total);
         setJournalRevision((value) => value + 1);
       }
       setSession(current);
@@ -153,7 +153,7 @@ export function App() {
     try {
       await api('/logout', {});
       setServers([]);
-      setEntries([]);
+      setEntryCount(0);
       navigate('inventory');
       await load();
     } catch (e) {
@@ -311,9 +311,8 @@ export function App() {
             <span>
               Journal entries
               <strong>
-                {entries.length}
-                {entries.length === 500 && '+'}
-                <small>recent records</small>
+                {entryCount}
+                <small>records</small>
               </strong>
             </span>
           </div>

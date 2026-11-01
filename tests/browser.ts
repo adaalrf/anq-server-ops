@@ -216,6 +216,11 @@ try {
     await recordsReady;
     await route.continue();
   });
+  const summaryRequests: string[] = [];
+  page.on('request', (request) => {
+    if (new URL(request.url()).pathname.startsWith('/api/entries'))
+      summaryRequests.push(new URL(request.url()).pathname + new URL(request.url()).search);
+  });
   await page.goto(demoOrigin);
   await expect(page.getByRole('status')).toContainText('Opening the operations journal');
   await expect(page.locator('.stats')).toHaveCount(0);
@@ -287,6 +292,20 @@ try {
   await expect(
     page.getByRole('button', { name: 'Record backup · Disabled in demo', exact: true }),
   ).toBeDisabled();
+
+  assert.ok(summaryRequests.includes('/api/entries/page?limit=1'));
+  assert.ok(!summaryRequests.some((url) => url.startsWith('/api/entries?')));
+  // The summary count remains exact beyond the old 500-record array cap.
+  await pool.query(
+    `INSERT INTO entries(id,server_id,kind,outcome,title,notes,occurred_at) SELECT gen_random_uuid(),$1,'maintenance','completed','Summary fixture '||n,'','2026-09-01T12:00:00Z' FROM generate_series(1,501) n`,
+    [(await pool.query("SELECT id FROM servers WHERE name='Birchwood'")).rows[0].id],
+  );
+  const expectedTotal = Number((await pool.query('SELECT count(*) FROM entries')).rows[0].count);
+  await page.reload();
+  await expect(
+    page.locator('.stats > div').filter({ hasText: 'Journal entries' }).locator('strong'),
+  ).toContainText(String(expectedTotal));
+  await pool.query("DELETE FROM entries WHERE title LIKE 'Summary fixture %'");
 
   // Filtering precedes pagination, and a shared URL restores the filter.
   await pool.query(
