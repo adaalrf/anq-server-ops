@@ -23,8 +23,11 @@ image rollback cannot undo arbitrary schema changes.
 
 Owner mode fails to start without a properly formatted password hash. Scrypt
 derives the password hash; comparison is constant-time. Login is limited to eight
-attempts a minute per directly observed source IP (single process, no trusted
-forwarded-IP headers). A reverse proxy may make several clients share that limit.
+attempts a minute per client IP and process. Forwarded-IP headers are ignored unless
+`TRUST_PROXY_IPS` names exact sanitizing-proxy addresses. The `self` value resolves
+current container addresses for verified rootless forwarding; it requires
+loopback-only published ports and a proxy that discards client-supplied forwarding
+headers. Shared public IPs still share a budget.
 Sessions use random 256-bit cookies, store only SHA-256 token hashes in PostgreSQL,
 expire after 12 hours, and use HttpOnly/SameSite=Strict; HTTPS adds Secure.
 

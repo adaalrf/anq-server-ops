@@ -1,3 +1,4 @@
+import { parseTrustedProxies } from './proxy.js';
 import { z } from 'zod';
 const envSchema = z.object({
   DATABASE_URL: z.string().min(1),
@@ -7,6 +8,7 @@ const envSchema = z.object({
   OWNER_PASSWORD_HASH: z.string().default(''),
   PORT: z.coerce.number().int().min(1).max(65535).default(8080),
   HOST: z.string().default('127.0.0.1'),
+  TRUST_PROXY_IPS: z.string().default(''),
 });
 export function loadConfig(env: NodeJS.ProcessEnv = process.env) {
   const values = envSchema.parse(env);
@@ -34,6 +36,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env) {
   }
   return {
     databaseUrl: values.DATABASE_URL,
+    trustProxy: parseTrustedProxies(values.TRUST_PROXY_IPS),
     origin: values.APP_ORIGIN,
     demo,
     username: values.OWNER_USERNAME,
