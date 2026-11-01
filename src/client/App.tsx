@@ -182,8 +182,10 @@ export function App() {
         {session.demo && (
           <div className="demo-banner">
             <span className="demo-tag">DEMO</span>
-            {session.relativeDates && <span>Sample dates are relative to today.</span>}
-            <span>You’re exploring fictional servers. This workspace is read-only.</span>
+            <span>
+              You’re exploring fictional servers. This workspace is read-only.
+              {session.relativeDates && ' Sample dates are relative to today.'}
+            </span>
             <a className="demo-end" href="https://adaalrf.dev/work/anq-server-ops/">
               A project by Martin Røed Flyum
             </a>

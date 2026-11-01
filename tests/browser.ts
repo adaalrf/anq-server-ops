@@ -200,7 +200,11 @@ try {
 
   const demo = await createApp(
     pool,
-    loadConfig({ DATABASE_URL: process.env.TEST_DATABASE_URL, DEMO_MODE: 'true' }),
+    loadConfig({
+      DATABASE_URL: process.env.TEST_DATABASE_URL,
+      DEMO_MODE: 'true',
+      DEMO_DATE_ANCHOR: new Date().toISOString().slice(0, 10),
+    }),
   );
   apps.push(demo);
   const demoOrigin = await demo.listen({ host: '127.0.0.1', port: 0 });
@@ -271,6 +275,8 @@ try {
     );
   }
   await page.setViewportSize({ width: 390, height: 844 });
+  await expect(page.getByRole('link', { name: 'A project by Martin Røed Flyum' })).toBeVisible();
+  await expect(page.getByText(/Sample dates are relative to today/)).toBeVisible();
   await page.screenshot({ path: 'test-results/screenshots/inventory-mobile.png', fullPage: true });
   await page.getByRole('button', { name: 'View Birchwood', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Birchwood', exact: true })).toBeVisible();

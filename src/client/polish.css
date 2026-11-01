@@ -122,3 +122,23 @@
     display: none;
   }
 }
+
+/* Attribution remains a usable return path at mobile widths. */
+.demo-banner {
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+.demo-banner > span:not(.demo-tag) {
+  flex: 1 1 12rem;
+}
+.demo-end {
+  display: inline-block;
+  font-size: 12px;
+  white-space: normal;
+}
+@media (max-width: 700px) {
+  .demo-end {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}
