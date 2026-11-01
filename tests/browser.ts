@@ -226,8 +226,8 @@ try {
     })),
     [],
   );
-  await mkdir('docs/screenshots', { recursive: true });
-  await page.screenshot({ path: 'docs/screenshots/inventory-desktop.png', fullPage: true });
+  await mkdir('test-results/screenshots', { recursive: true });
+  await page.screenshot({ path: 'test-results/screenshots/inventory-desktop.png', fullPage: true });
   for (const width of [390, 768]) {
     await page.setViewportSize({ width, height: 844 });
     assert.equal(
@@ -237,7 +237,7 @@ try {
     );
   }
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.screenshot({ path: 'docs/screenshots/inventory-mobile.png', fullPage: true });
+  await page.screenshot({ path: 'test-results/screenshots/inventory-mobile.png', fullPage: true });
   await page.getByRole('button', { name: 'View Birchwood', exact: true }).click();
   await expect(page.getByRole('heading', { name: 'Birchwood', exact: true })).toBeVisible();
   await workspaceLink(page, 'Activity journal');
