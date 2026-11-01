@@ -11,3 +11,4 @@ createRoot(document.getElementById('root')!).render(
 import './navigation.css';
 
 import './dark.css';
+import './polish.css';

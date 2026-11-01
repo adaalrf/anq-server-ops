@@ -11,7 +11,8 @@ and distinguish a completed backup from a tested restore.
 ![Inventory](docs/screenshots/inventory-desktop.png)
 
 Navigation keeps the desktop sidebar and uses a labelled, keyboard-accessible mobile
-menu with a return-to-top control. Colours follow the device’s light/dark preference.
+menu with a return-to-top control. Colours follow the device’s light/dark preference
+until the workspace appearance switch is used; that choice is saved in the browser.
 The browser suite checks both themes and mobile navigation with fictional data.
 
 ## Run locally

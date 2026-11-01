@@ -1,176 +1,142 @@
-/* Dark equivalents for component accents; the main palette lives in tokens.css. */
-@media screen and (prefers-color-scheme: dark) {
-  input,
-  select,
-  textarea {
+/* Component accents follow the resolved appearance, including manual overrides. */
+@media screen {
+  :root[data-theme='dark'] input,
+  :root[data-theme='dark'] select,
+  :root[data-theme='dark'] textarea {
     background-color: var(--color-surface);
     color: var(--color-ink);
   }
-  ::placeholder {
+  :root[data-theme='dark'] ::placeholder {
     color: var(--color-muted);
     opacity: 1;
   }
-  .primary {
+  :root[data-theme='dark'] .primary {
     color: var(--color-on-brand);
   }
-  .sidebar,
-  .site-header,
-  aside {
+  :root[data-theme='dark'] .sidebar,
+  :root[data-theme='dark'] .site-header,
+  :root[data-theme='dark'] aside {
     --color-on-brand: #f2f7f5;
   }
-
-  .topbar {
+  :root[data-theme='dark'] .topbar {
     background: var(--color-surface);
   }
-
-  .topbar strong {
+  :root[data-theme='dark'] .topbar strong {
     color: var(--color-muted);
   }
-
-  .export {
+  :root[data-theme='dark'] .export {
     color: var(--color-muted);
   }
-
-  .demo-banner {
+  :root[data-theme='dark'] .demo-banner {
     border: 1px solid var(--color-line);
     background: var(--color-positive-surface);
     color: var(--color-positive);
   }
-
-  .demo-tag {
+  :root[data-theme='dark'] .demo-tag {
     border: 1px solid var(--color-line);
   }
-
-  .stats strong {
+  :root[data-theme='dark'] .stats strong {
     color: var(--color-positive);
   }
-
-  .stat-icon {
+  :root[data-theme='dark'] .stat-icon {
     background: var(--color-positive-surface);
     border: 1px solid var(--color-line);
   }
-
-  .stat-icon.green {
+  :root[data-theme='dark'] .stat-icon.green {
     background: var(--color-positive-surface);
   }
-
-  .stat-icon.amber {
+  :root[data-theme='dark'] .stat-icon.amber {
     background: var(--color-warning-surface);
     border-color: var(--color-line);
   }
-
-  .panel-title > span {
+  :root[data-theme='dark'] .panel-title > span {
     background: var(--color-positive-surface);
   }
-
-  input,
-  select,
-  textarea {
+  :root[data-theme='dark'] input,
+  :root[data-theme='dark'] select,
+  :root[data-theme='dark'] textarea {
     color: var(--color-positive);
   }
-
-  .search {
+  :root[data-theme='dark'] .search {
     border: 1px solid var(--color-line);
   }
-
-  thead {
+  :root[data-theme='dark'] thead {
     background: var(--color-positive-surface);
   }
-
-  td {
+  :root[data-theme='dark'] td {
     border-bottom: 1px solid var(--color-line);
   }
-
-  tbody tr:hover {
+  :root[data-theme='dark'] tbody tr:hover {
     background: var(--color-positive-surface);
   }
-
-  .server-avatar {
+  :root[data-theme='dark'] .server-avatar {
     background: var(--color-positive-surface);
   }
-
-  .server-avatar.valheim {
+  :root[data-theme='dark'] .server-avatar.valheim {
     background: var(--color-info-surface);
   }
-
-  .server-avatar.factorio {
+  :root[data-theme='dark'] .server-avatar.factorio {
     background: var(--color-warning-surface);
   }
-
-  .badge {
+  :root[data-theme='dark'] .badge {
     background: var(--color-surface);
     border: 1px solid var(--color-line);
   }
-
-  .badge.operational,
-  .badge.recorded,
-  .badge.completed {
+  :root[data-theme='dark'] .badge.operational,
+  :root[data-theme='dark'] .badge.recorded,
+  :root[data-theme='dark'] .badge.completed {
     background: var(--color-positive-surface);
     border-color: var(--color-line);
   }
-
-  .badge.degraded,
-  .badge.overdue,
-  .badge.planned {
+  :root[data-theme='dark'] .badge.degraded,
+  :root[data-theme='dark'] .badge.overdue,
+  :root[data-theme='dark'] .badge.planned {
     background: var(--color-warning-surface);
     border-color: var(--color-line);
   }
-
-  .badge.failed {
+  :root[data-theme='dark'] .badge.failed {
     color: var(--color-danger);
     background: var(--color-danger-surface);
     border-color: var(--color-line);
   }
-
-  .text-button {
+  :root[data-theme='dark'] .text-button {
     color: var(--color-positive);
   }
-
-  .bottom-note {
+  :root[data-theme='dark'] .bottom-note {
     border: 1px solid var(--color-line);
     background: var(--color-positive-surface);
   }
-
-  footer {
+  :root[data-theme='dark'] footer {
     border-top: 1px solid var(--color-line);
   }
-
-  .empty h3 {
+  :root[data-theme='dark'] .empty h3 {
     color: var(--color-positive);
   }
-
-  .timeline li {
+  :root[data-theme='dark'] .timeline li {
     border-bottom: 1px solid var(--color-line);
   }
-
-  .event-icon {
+  :root[data-theme='dark'] .event-icon {
     background: var(--color-positive-surface);
   }
-
-  .event-icon.incident {
+  :root[data-theme='dark'] .event-icon.incident {
     background: var(--color-warning-surface);
   }
-
-  dialog {
+  :root[data-theme='dark'] dialog {
     border: 1px solid var(--color-line);
   }
-
-  .error {
+  :root[data-theme='dark'] .error {
     background: var(--color-danger-surface);
     border: 1px solid var(--color-line);
     color: var(--color-danger);
   }
-
-  .notice {
+  :root[data-theme='dark'] .notice {
     background: var(--color-positive-surface);
     border: 1px solid var(--color-line);
   }
-
-  .login {
+  :root[data-theme='dark'] .login {
     background: var(--color-positive-surface);
   }
-
-  .login p.error {
+  :root[data-theme='dark'] .login p.error {
     color: var(--color-danger);
   }
 }
