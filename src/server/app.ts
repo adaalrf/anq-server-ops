@@ -1,3 +1,4 @@
+import { demoDateShiftDays, projectDemoDates, shiftDemoDate } from './demo-dates.js';
 import Fastify from 'fastify';
 import cookie from '@fastify/cookie';
 import rateLimit from '@fastify/rate-limit';
@@ -38,6 +39,12 @@ export async function createApp(
     requestTimeout: 15_000,
     loggerInstance: undefined,
   });
+  // Only the explicitly configured read-only demo projects dates. Owner data is unchanged.
+  app.addHook('preSerialization', async (request, _reply, payload) =>
+    config.demo && request.url.startsWith('/api/')
+      ? projectDemoDates(payload, demoDateShiftDays(config.demoDateAnchor))
+      : payload,
+  );
   await app.register(cookie);
   await app.register(rateLimit, { global: false });
   app.setErrorHandler((error, request, reply) => {
@@ -94,6 +101,7 @@ export async function createApp(
   });
   app.get('/api/session', async (request) => ({
     demo: config.demo,
+    relativeDates: Boolean(config.demoDateAnchor),
     authenticated: !config.demo && (await authenticated(request)),
     username: config.username,
   }));
@@ -203,7 +211,20 @@ export async function createApp(
       )
     ).rows;
   });
-  app.get('/api/entries/page', async (request) => searchJournal(pool, request.query));
+  app.get('/api/entries/page', async (request) => {
+    const query = { ...(request.query as Record<string, unknown>) };
+    const days = config.demo ? demoDateShiftDays(config.demoDateAnchor) : 0;
+    // Search bounds are displayed dates; cursors deliberately remain database keys.
+    if (days)
+      for (const key of ['from', 'to']) {
+        if (
+          typeof query[key] === 'string' &&
+          z.iso.datetime({ offset: true }).safeParse(query[key]).success
+        )
+          query[key] = shiftDemoDate(query[key], -days);
+      }
+    return searchJournal(pool, query);
+  });
   app.post('/api/servers/:id/entries', async (request, reply) => {
     const { id } = idSchema.parse(request.params);
     const input = entryInput.parse(request.body);

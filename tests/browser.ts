@@ -204,8 +204,42 @@ try {
   );
   apps.push(demo);
   const demoOrigin = await demo.listen({ host: '127.0.0.1', port: 0 });
+  let releaseRecords!: () => void;
+  const recordsReady = new Promise<void>((resolve) => {
+    releaseRecords = resolve;
+  });
+  await page.route('**/api/servers', async (route) => {
+    await recordsReady;
+    await route.continue();
+  });
   await page.goto(demoOrigin);
-  await expect(page.getByRole('button', { name: 'Add server', exact: true })).toBeDisabled();
+  await expect(page.getByRole('status')).toContainText('Opening the operations journal');
+  await expect(page.locator('.stats')).toHaveCount(0);
+  await expect(page.getByText('Your inventory starts here', { exact: true })).toHaveCount(0);
+  releaseRecords();
+  await expect(
+    page.getByRole('button', { name: 'Add server · Disabled in demo', exact: true }),
+  ).toBeDisabled();
+  await page.unroute('**/api/servers');
+  await page.route('**/api/servers', (route) =>
+    route.fulfill({
+      status: 503,
+      contentType: 'application/json',
+      body: JSON.stringify({ message: 'Temporary sample-data failure' }),
+    }),
+  );
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Couldn’t open the journal' })).toBeVisible();
+  await expect(page.locator('.stats')).toHaveCount(0);
+  await page.unroute('**/api/servers');
+  await page.getByRole('button', { name: 'Try again', exact: true }).click();
+  await expect(page.getByRole('link', { name: 'A project by Martin Røed Flyum' })).toHaveAttribute(
+    'href',
+    'https://adaalrf.dev/work/anq-server-ops/',
+  );
+  await expect(
+    page.getByRole('button', { name: 'Add server · Disabled in demo', exact: true }),
+  ).toBeDisabled();
   await expect(page).toHaveTitle('Server inventory · ANQ Server Ops');
   await page.keyboard.press('Tab');
   await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
@@ -244,7 +278,9 @@ try {
   await expect(page.getByRole('heading', { name: 'Activity journal', exact: true })).toBeVisible();
   await workspaceLink(page, 'Backup records');
   await expect(page.getByRole('heading', { name: 'Backup records', exact: true })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Record backup', exact: true })).toBeDisabled();
+  await expect(
+    page.getByRole('button', { name: 'Record backup · Disabled in demo', exact: true }),
+  ).toBeDisabled();
 
   // Filtering precedes pagination, and a shared URL restores the filter.
   await pool.query(

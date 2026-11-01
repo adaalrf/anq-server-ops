@@ -34,7 +34,7 @@ export function Workspace({
               <Icon name="server" size={22} />
             </span>
             <strong>
-              ANQ Server<span className="logo-light">Ops</span>
+              ANQ Server <span className="logo-light">Ops</span>
               <small>THE OPERATIONS JOURNAL</small>
             </strong>
           </a>

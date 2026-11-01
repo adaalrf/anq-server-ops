@@ -27,7 +27,6 @@ export function App() {
     setLoading(true);
     try {
       const current = await api<Session>('/session');
-      setSession(current);
       if (current.demo || current.authenticated) {
         const [inventory, journal] = await Promise.all([
           api<ServerRecord[]>('/servers'),
@@ -37,6 +36,7 @@ export function App() {
         setEntries(journal);
         setJournalRevision((value) => value + 1);
       }
+      setSession(current);
     } finally {
       setLoading(false);
     }
@@ -182,8 +182,11 @@ export function App() {
         {session.demo && (
           <div className="demo-banner">
             <span className="demo-tag">DEMO</span>
+            {session.relativeDates && <span>Sample dates are relative to today.</span>}
             <span>You’re exploring fictional servers. This workspace is read-only.</span>
-            <span className="demo-end">Built by adaalrf</span>
+            <a className="demo-end" href="https://adaalrf.dev/work/anq-server-ops/">
+              A project by Martin Røed Flyum
+            </a>
           </div>
         )}
         <div className="page-heading">
@@ -223,6 +226,7 @@ export function App() {
               : view === 'journal'
                 ? 'Record work'
                 : 'Record backup'}
+            {session.demo && ' · Disabled in demo'}
           </button>
         </div>
         {view !== 'inventory' && !active.length && !loading && (
@@ -266,7 +270,7 @@ export function App() {
               Active inventory
               <strong>
                 {active.length}
-                <small>servers</small>
+                <small>{active.length === 1 ? 'server' : 'servers'}</small>
               </strong>
             </span>
           </div>
@@ -278,7 +282,11 @@ export function App() {
               Recorded operational
               <strong>
                 {active.filter((s) => s.status === 'operational').length}
-                <small>servers</small>
+                <small>
+                  {active.filter((s) => s.status === 'operational').length === 1
+                    ? 'server'
+                    : 'servers'}
+                </small>
               </strong>
             </span>
           </div>
