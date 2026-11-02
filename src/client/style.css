@@ -164,6 +164,14 @@ button:disabled {
   border-color: var(--color-brand-hover);
   color: var(--color-on-brand);
 }
+/* A disabled primary action (as in the demos) stays an outline, so the page's
+   largest colour block is never something the reader cannot use. */
+.primary:disabled {
+  background: transparent;
+  border-color: var(--color-line);
+  color: var(--color-muted);
+  opacity: 1;
+}
 .text-button,
 .back-button {
   min-height: var(--size-touch);
