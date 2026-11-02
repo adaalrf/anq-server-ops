@@ -72,7 +72,7 @@ export function Inventory({
           <div className="detail-heading">
             <div>
               <p className="eyebrow">
-                {selected.game || 'SERVER'} · {selected.region || 'NO REGION'}
+                {selected.game || 'Server'} · {selected.region || 'No region'}
               </p>
               <h2 id="detail-title">{selected.name}</h2>
               <code>{selected.hostname || 'No hostname recorded'}</code>
@@ -184,10 +184,10 @@ export function Inventory({
                 <table>
                   <thead>
                     <tr>
-                      <th scope="col">SERVER</th>
-                      <th scope="col">RECORDED STATUS</th>
-                      <th scope="col">BACKUP RECORD</th>
-                      <th scope="col">LAST RESTORE DRILL</th>
+                      <th scope="col">Server</th>
+                      <th scope="col">Recorded status</th>
+                      <th scope="col">Backup record</th>
+                      <th scope="col">Last restore drill</th>
                       <th scope="col">
                         <span className="sr-only">Details</span>
                       </th>
@@ -201,9 +201,6 @@ export function Inventory({
                             className="server-link"
                             onClick={() => navigate('inventory', s.id)}
                           >
-                            <span className={`server-avatar ${s.game.toLowerCase()}`}>
-                              {s.name.slice(0, 1)}
-                            </span>
                             <span>
                               <strong>{s.name}</strong>
                               <small>

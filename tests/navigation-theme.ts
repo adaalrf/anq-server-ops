@@ -84,7 +84,7 @@ export async function checkNavigationTheme(source: Page, origin: string, hasMenu
     await appearance.click();
     await page.reload();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-    await expect(page.locator('.topbar strong')).toHaveCSS('color', 'rgb(188, 194, 197)');
+    await expect(page.locator('.topbar strong')).toHaveCSS('color', 'rgb(232, 234, 235)');
     const other = await source.context().newPage();
     await other.goto(origin);
     await other.getByRole('switch', { name: 'Dark mode' }).click();

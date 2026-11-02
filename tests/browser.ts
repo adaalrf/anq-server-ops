@@ -304,7 +304,7 @@ try {
   const expectedTotal = Number((await pool.query('SELECT count(*) FROM entries')).rows[0].count);
   await page.reload();
   await expect(
-    page.locator('.stats > div').filter({ hasText: 'Journal entries' }).locator('strong'),
+    page.locator('.stats > div').filter({ hasText: 'Journal entries' }).locator('dd'),
   ).toContainText(String(expectedTotal));
   await pool.query("DELETE FROM entries WHERE title LIKE 'Summary fixture %'");
 

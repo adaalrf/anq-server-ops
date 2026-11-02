@@ -29,18 +29,12 @@ export function Workspace({
       </a>
       <NavigationShell
         brand={
-          <a className="logo" href={import.meta.env.BASE_URL} aria-label="ANQ Server Ops home">
-            <span>
-              <Icon name="server" size={22} />
-            </span>
-            <strong>
-              ANQ Server <span className="logo-light">Ops</span>
-              <small>THE OPERATIONS JOURNAL</small>
-            </strong>
+          <a className="logo" href={import.meta.env.BASE_URL}>
+            ANQ Server Ops<small>The operations journal</small>
           </a>
         }
       >
-        <p className="nav-label">WORKSPACE</p>
+        <p className="nav-label">Workspace</p>
         <nav aria-label="Workspace">
           {(
             [
@@ -79,7 +73,6 @@ export function Workspace({
           ))}
         </nav>
         <div className="sidebar-note">
-          <Icon name="journal" />
           <strong>A record of your work.</strong>
           <p>Inventory and human-recorded events. No remote commands. No automatic monitoring.</p>
         </div>

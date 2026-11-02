@@ -176,6 +176,7 @@ export function App() {
     );
   if (!session.demo && !session.authenticated)
     return <SignIn {...{ session, login, error, busy }} />;
+  const operational = active.filter((s) => s.status === 'operational').length;
   return (
     <>
       <Workspace {...{ session, view, navigate, setQuery, active, logout }}>
@@ -193,7 +194,6 @@ export function App() {
         )}
         <div className="page-heading">
           <div>
-            <p className="eyebrow">YOUR FLEET, DOCUMENTED.</p>
             <h1>
               {view === 'inventory'
                 ? 'Server inventory'
@@ -263,60 +263,27 @@ export function App() {
             </button>
           </div>
         )}
-        <div className="stats">
-          <div>
-            <span className="stat-icon">
-              <Icon name="server" />
-            </span>
-            <span>
-              Active inventory
-              <strong>
-                {active.length}
-                <small>{active.length === 1 ? 'server' : 'servers'}</small>
-              </strong>
-            </span>
-          </div>
-          <div>
-            <span className="stat-icon green">
-              <Icon name="server" />
-            </span>
-            <span>
-              Recorded operational
-              <strong>
-                {active.filter((s) => s.status === 'operational').length}
-                <small>
-                  {active.filter((s) => s.status === 'operational').length === 1
-                    ? 'server'
-                    : 'servers'}
-                </small>
-              </strong>
-            </span>
-          </div>
-          <div>
-            <span className="stat-icon amber">
-              <Icon name="backup" />
-            </span>
-            <span>
-              Backup attention
-              <strong>
-                {active.filter((s) => backupState(s) !== 'recorded').length}
-                <small>overdue or missing</small>
-              </strong>
-            </span>
-          </div>
-          <div>
-            <span className="stat-icon">
-              <Icon name="journal" />
-            </span>
-            <span>
-              Journal entries
-              <strong>
-                {entryCount}
-                <small>records</small>
-              </strong>
-            </span>
-          </div>
-        </div>
+        <dl className="stats">
+          {(
+            [
+              ['Active inventory', active.length, active.length === 1 ? 'server' : 'servers'],
+              ['Recorded operational', operational, operational === 1 ? 'server' : 'servers'],
+              [
+                'Backup attention',
+                active.filter((s) => backupState(s) !== 'recorded').length,
+                'overdue or missing',
+              ],
+              ['Journal entries', entryCount, 'records'],
+            ] as const
+          ).map(([label, count, unit]) => (
+            <div key={label}>
+              <dt>{label}</dt>
+              <dd>
+                {count} <small>{unit}</small>
+              </dd>
+            </div>
+          ))}
+        </dl>
         <Inventory
           {...{
             selectedId,
