@@ -2,18 +2,31 @@
 
 [![Checks](https://github.com/adaalrf/anq-server-ops/actions/workflows/check.yml/badge.svg)](https://github.com/adaalrf/anq-server-ops/actions/workflows/check.yml)
 
-A single-owner operations journal built with React, TypeScript, Fastify and
-PostgreSQL. Keep a small server inventory, record maintenance and incidents,
-and distinguish a completed backup from a tested restore.
+A server-inventory and maintenance journal with contextual forms and dated
+history. Its interface keeps recorded status, backup records and restore drills
+visible together while preserving their different meanings. Built with React,
+TypeScript, Fastify and PostgreSQL.
 
-[Try the read-only demo](https://ops.demo.adaalrf.dev) with fictional records.
+[Explore the read-only demo](https://ops.demo.adaalrf.dev) · [Case study](https://adaalrf.dev/work/anq-server-ops/) · [Source map](CONTRIBUTING.md#where-changes-belong)
 
-![Inventory](docs/screenshots/inventory-desktop.png)
+The public demo contains fictional servers and maintenance records.
 
-Navigation keeps the desktop sidebar and uses a labelled, keyboard-accessible mobile
-menu with a return-to-top control. Colours follow the device’s light/dark preference
-until the workspace appearance switch is used; that choice is saved in the browser.
-The browser suite checks both themes and mobile navigation with fictional data.
+![Server inventory](docs/screenshots/inventory-desktop.png)
+
+## Review path
+
+- [Inventory](src/client/pages/Inventory.tsx) brings recorded status and recovery evidence into one view.
+- [RecordDialog](src/client/components/RecordDialog.tsx) keeps journal entries tied to an explicit server.
+- [Browser workflows](tests/browser.ts) cover contextual forms, validation recovery, filtering and deep links.
+
+## How this project is developed
+
+AI coding agents implement and revise the application, with scope, architecture
+and presentation directed by the maintainer. The [development guide](CONTRIBUTING.md)
+keeps recorded evidence and live monitoring distinct. Database and browser tests
+check record updates, history and the meaning of backup and restore indicators.
+
+The [initial public release](https://github.com/adaalrf/anq-server-ops/commit/daca5cd) is a squashed snapshot of pre-publication development; subsequent changes are recorded incrementally.
 
 ## Run locally
 
