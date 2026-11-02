@@ -1,19 +1,19 @@
 /* ANQ token contract: shared roles and metrics; this project owns its palette. */
 :root {
   color-scheme: light;
-  --color-canvas: #f6f8f6;
+  --color-canvas: #f6f6f5;
   --color-surface: #ffffff;
-  --color-surface-soft: #edf2eb;
-  --color-ink: #25352e;
-  --color-muted: #5b6e60;
-  --color-brand: #2b5947;
-  --color-brand-hover: #214a3a;
-  --color-sidebar: #203a30;
-  --color-on-brand: #f4f7f1;
-  --color-sidebar-muted: #bfd0c3;
-  --color-line: #dce4dc;
+  --color-surface-soft: #ecedeb;
+  --color-ink: #2c2f31;
+  --color-muted: #60666a;
+  --color-brand: #414b52;
+  --color-brand-hover: #333b41;
+  --color-sidebar: #2a3034;
+  --color-on-brand: #f6f7f7;
+  --color-sidebar-muted: #cdd2d5;
+  --color-line: #dcdfe0;
   --color-danger: #953b32;
-  --color-focus: #2b5947;
+  --color-focus: #414b52;
   --font-body: Arial, Helvetica, sans-serif;
   --font-heading: Georgia, 'Times New Roman', serif;
   --text-small: 0.8125rem;
@@ -34,18 +34,18 @@
 @media screen {
   :root[data-theme='dark'] {
     color-scheme: dark;
-    --color-canvas: #141d18;
-    --color-surface: #1c2921;
-    --color-surface-soft: #27372c;
-    --color-ink: #e3eee5;
-    --color-muted: #b6c8bb;
-    --color-brand: #a8d7bc;
-    --color-brand-hover: #c2e7cf;
-    --color-sidebar: #172c22;
-    --color-on-brand: #15261d;
-    --color-line: #445c4b;
-    --color-focus: #a8d7bc;
-    --color-sidebar-muted: #d0dce0;
+    --color-canvas: #17191a;
+    --color-surface: #202325;
+    --color-surface-soft: #2b2f31;
+    --color-ink: #e8eaeb;
+    --color-muted: #bcc2c5;
+    --color-brand: #c6d0d6;
+    --color-brand-hover: #d8e0e5;
+    --color-sidebar: #1b1e20;
+    --color-on-brand: #1d2124;
+    --color-line: #4a5155;
+    --color-focus: #c6d0d6;
+    --color-sidebar-muted: #cbd1d4;
     --color-danger: #ffb4a8;
     --color-danger-surface: #412824;
     --color-warning: #f2d48d;
@@ -56,6 +56,6 @@
     --color-info-surface: #24354a;
     --color-purple: #d7bff2;
     --color-purple-surface: #352a43;
-    --color-accent: #34472b;
+    --color-accent: #333a3f;
   }
 }

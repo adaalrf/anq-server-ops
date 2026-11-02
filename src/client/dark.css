@@ -16,7 +16,7 @@
   :root[data-theme='dark'] .sidebar,
   :root[data-theme='dark'] .site-header,
   :root[data-theme='dark'] aside {
-    --color-on-brand: #f2f7f5;
+    --color-on-brand: #f4f6f7;
   }
   :root[data-theme='dark'] .topbar {
     background: var(--color-surface);
