@@ -182,7 +182,7 @@ export function App() {
       <Workspace {...{ session, view, navigate, setQuery, active, logout }}>
         {session.demo && (
           <div className="demo-banner">
-            <span className="demo-tag">DEMO</span>
+            <span className="demo-tag">Demo</span>
             <span>
               You’re exploring fictional servers. This workspace is read-only.
               {session.relativeDates && ' Sample dates are relative to today.'}
