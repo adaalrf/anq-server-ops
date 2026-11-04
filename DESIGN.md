@@ -1,7 +1,7 @@
 # Design
 
 ANQ Server Ops follows the ANQ family system. Engineering decisions live in
-[docs/DESIGN.md](docs/DESIGN.md); this file covers the interface.
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md); this file covers the interface.
 
 ## This project's settings
 

@@ -1,13 +1,6 @@
-# Decisions and evidence
+# Architecture
 
-## The problem
-
-A server's hostname is easy to remember until several worlds, providers, and
-maintenance histories accumulate. A generic uptime dashboard answers a different
-question: whether a probe succeeded. This tool records what the owner knows and
-what they actually did.
-
-## Architecture
+## Overview
 
 The React UI and JSON API share one origin. Fastify validates incoming objects
 with strict Zod schemas; PostgreSQL adds foreign keys, checks, and transactions.
@@ -47,6 +40,12 @@ timestamp and notes. Neither timestamp means a backup can be recovered now.
 The application never opens a server hostname, executes commands, or accepts
 credentials for game servers.
 
+The inventory is unpaginated and intended for a small fleet. The journal has filters
+and 25 entries per page, and its summary uses that endpoint's exact total, so loading
+the workspace doesn't download every entry just to count them. Journal history is
+append-only through the app, but it isn't tamper-proof against database
+administrators.
+
 ## Local owner workflow
 
 The editable local workspace uses its own server_ops_owner database, separate
@@ -65,4 +64,4 @@ to the current record. Existing API validation and demo restrictions are unchang
 API tests cover authentication, Origin enforcement, invalid input, stale edits,
 backup/restore semantics, archiving, export, demo mode, expiry, and logout against
 real PostgreSQL. Browser tests use a temporary schema and the compiled client.
-See [deployment](OPERATIONS.md#deployment) for the container and database contract.
+See [deployment](DEPLOYMENT.md) for the container and database contract.
