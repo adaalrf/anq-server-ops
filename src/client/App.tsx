@@ -189,6 +189,7 @@ export function App() {
             </span>
             <a className="demo-end" href="https://adaalrf.dev/work/anq-server-ops/">
               A project by Martin Røed Flyum
+              <Icon name="external" size={14} />
             </a>
           </div>
         )}
