@@ -64,6 +64,9 @@ export async function createApp(
   app.addHook('onSend', async (request, reply) => {
     reply.header('X-Content-Type-Options', 'nosniff');
     reply.header('Referrer-Policy', 'no-referrer');
+    reply
+      .header('Cross-Origin-Opener-Policy', 'same-origin')
+      .header('Cross-Origin-Resource-Policy', 'same-origin');
     reply.header(
       'Content-Security-Policy',
       "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'",
@@ -276,6 +279,18 @@ export async function createApp(
     }
   });
   const root = options.staticRoot ?? resolve('dist/client');
-  if (existsSync(root)) await app.register(staticFiles, { root, index: ['index.html'] });
+  if (existsSync(root))
+    await app.register(staticFiles, {
+      root,
+      index: ['index.html'],
+      preCompressed: true,
+      cacheControl: false,
+      // Vite names these after their content, so a changed file is a new URL.
+      setHeaders: (response, path) =>
+        response.header(
+          'Cache-Control',
+          path.includes('/assets/') ? 'public, max-age=31536000, immutable' : 'no-cache',
+        ),
+    });
   return app;
 }
