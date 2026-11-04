@@ -10,7 +10,7 @@ import type pg from 'pg';
 import { z } from 'zod';
 import type { Config } from './config.js';
 import { newToken, tokenHash, verifyPassword } from './auth.js';
-import { entryInput, serverInput, serverUpdate } from '../shared/model.js';
+import { entryInput, serverInput, serverUpdate } from './validation.js';
 import { searchJournal } from './journal.js';
 
 const serverSelect = `SELECT s.id, s.name, s.hostname, s.provider, s.region, s.game, s.status,

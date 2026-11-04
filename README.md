@@ -45,7 +45,7 @@ rather than overwriting newer work.
 
 ## Try it yourself
 
-You'll need Linux, Node.js 24 or newer, npm and rootless Podman. Then, from this
+You'll need Linux, Node.js 26 or newer, npm and rootless Podman. Then, from this
 directory:
 
 ```sh
