@@ -1,4 +1,6 @@
-# Operations
+# Deploying ANQ Server Ops
+
+## Running it
 
 - Keep the owner workspace behind HTTPS; never put real inventory into the
   public demo. A `DEMO_MODE=true` instance exposes its entire export to visitors.
@@ -56,6 +58,12 @@ the password on stdin. Owner mode requires HTTPS outside localhost.
 A public demo must use `DEMO_MODE=true`, a separate database, and fictional data.
 Run the seed command only for an empty demonstration database. Never copy owner
 records or credentials into a demo, screenshot, or repository.
+
+For a read-only sample prepared on a known UTC date, set
+`DEMO_DATE_ANCHOR=YYYY-MM-DD` alongside `DEMO_MODE=true`. API dates then move together
+relative to today; stored records, text and pagination keys stay unchanged. Leave it
+blank for stored dates. Owner mode rejects this setting, and the demo banner explains
+the relative dates.
 
 ### ANQ Publish
 
